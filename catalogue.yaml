@@ -58,5 +58,5 @@
     ansible.builtin.debug:
       msg: "Product Count: {{product_count}}"
 
-  - name: Load the db.products.count  
+  - name: Load catalogue data  
     ansible.builtin.command: mongo --host mongodb.ganeshthommandru.online </app/schema/catalogue.js
