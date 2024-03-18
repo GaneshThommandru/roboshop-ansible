@@ -26,5 +26,27 @@
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
-    
+  
+  - name: Install dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+  - name: create Catalogue.service file
+    ansible.builtin.copy:
+      src: /home/centos/roboshop-ansible/catalogue.service
+      dest: /etc/systemd/system/catalogue.service
 
+  - name: Daemon-reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      # state: restarted    
+
+  - name: Copy Mongodb repo to yum repos directory
+    ansible.builtin.copy:
+      src: /home/centos/roboshop-ansible/mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: install mongodb client
+    ansbile.builtin.package:
+      name: mongodb-org-shell
+      state: present
