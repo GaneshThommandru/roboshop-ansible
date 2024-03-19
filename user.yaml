@@ -65,7 +65,7 @@
 
   - name: Load user data  
     ansible.builtin.command: mongo --host mongodb.ganeshthommandru.online < /app/schema/user.js
-    when: product_count.stdout == "0" # Keep doubel quotes
+    when: users.stdout == "0" # Keep doubel quotes
 
   - name: Start and enable user
     ansible.builtin.service:
