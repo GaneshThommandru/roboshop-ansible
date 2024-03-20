@@ -50,7 +50,7 @@
       dest: /etc/systemd/system/shipping.service
 
   - name: System Daemon-reload
-    ansible.builtin.ssytemd_service:
+    ansible.builtin.sytemd_service:
      daemon_reload: true
   
   - name: install mysql client
