@@ -1,6 +1,8 @@
 - name: Install shipping components
   hosts: shipping
   become: yes
+  vars:
+    mysql_password: RoboShop@1
   tasks: 
   - name: install maven 
     ansible.builtin.dnf:
@@ -55,3 +57,11 @@
     ansible.builtin.dnf:
       name: mysql
       state: present
+
+  - name: check cities schema exist or /etc/nginx/default.d/roboshop.conf
+    ansible.builtin.command: mysql -h mysql.ganeshthommandru.online -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME= 'cities'"
+    register: schema
+
+  - name: print output
+    ansible.builtin.debug:
+      msg: "schema output: {{schema}}"
